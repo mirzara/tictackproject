@@ -58,8 +58,14 @@ const showWinner =(winner) =>{
     msgContainer.classList.remove("hide");
     disableBoxes();
 }
+ const showdraw = () =>{
+    msg.innerText =`try again,match Draw`;
+    msgContainer.classList.remove("hide");
+    disableBoxes();
+ }
 
 const checkWinner = () => {
+    let isFull = true;
     for ( let pattern of winPatterns) {
            let pos1Val = boxes[pattern[0]].innerText;
            let pos2Val = boxes[pattern[1]].innerText;
@@ -68,11 +74,16 @@ const checkWinner = () => {
            if(pos1Val != "" && pos2Val != "" && pos3Val != "") {
             if(pos1Val == pos2Val && pos2Val == pos3Val){
                 showWinner(pos1Val);
+                return;
             }
 
            }
+           if(pos1Val == "" || pos2Val == "" || pos3Val == ""){
+            isFull = false;
+           }
         }    
-    
+    if(isFull == true){
+        showdraw();}
     };  
     newGameBtn.addEventListener("click", resetGame);
     resetBtn.addEventListener("click", resetGame);
